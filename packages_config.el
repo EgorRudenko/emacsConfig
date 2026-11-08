@@ -118,14 +118,13 @@
 					
 (use-package eglot
   :ensure t
-  :config
-  (add-to-list 'eglot-server-programs
-               '(python-base-mode . ("pyright-langserver" "--stdio")))
   :hook ((python-mode . eglot-ensure)
+         (python-ts-mode . eglot-ensure)
          (go-mode . eglot-ensure)
          (c-mode . eglot-ensure)
-	 (c++-mode . eglot-ensure)
-	 (emacs-lisp-mode . eglot-ensure)))
+         (c++-mode . eglot-ensure)
+         (emacs-lisp-mode . eglot-ensure)))
+
 
 (use-package org
   :config
@@ -139,3 +138,11 @@
   (setq org-babel-python-command "python3")
   (setq org-startup-with-inline-images t)
 )
+
+(use-package cape
+  :ensure
+  :init
+  (add-to-list 'completion-at-point-functions
+               #'cape-dabbrev)
+  (add-to-list 'completion-at-point-functions
+               #'cape-file))

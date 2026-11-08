@@ -36,7 +36,11 @@
 (load "keymaps")
 
 
-(load-theme 'modus-operandi t)
+(if (daemonp)
+    (add-hook 'after-make-frame-functions #'my/load-theme)
+  (my/load-theme (selected-frame)))
+
+
 (custom-set-faces
  '(font-lock-keyword-face ((t (:weight bold))))
  '(font-lock-type-face ((t (:weight bold))))

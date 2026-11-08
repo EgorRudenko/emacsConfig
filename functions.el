@@ -97,11 +97,30 @@
   (switch-to-buffer "pyide.py")
   (python-ts-mode)
   (use-local-map (copy-keymap python-ts-mode-map))
-  (local-set-key (kbd "C-c C-c") 'pyide-eval-buffer))
+  (local-set-key (kbd "C-c C-c") #'pyide-eval-buffer)
+  (local-set-key (kbd "C-c C-p") (lambda () (interactive) (run-python "python3" t t)))
+  (local-set-key (kbd "C-c e") #'python-shell-send-buffer))
 
+
+(defun kill-and-quit ()
+  "Kill buffer and quit corresponding window"
+  (interactive)
+  (let ((buff (current-buffer)))
+    (quit-window)
+    (kill-buffer buff)
+    )
+  )
 
 (defun my/display-buffer-and-select (buffer alist)
   (let ((win (display-buffer-pop-up-window buffer alist)))
     (when win
       (select-window win))
     win))
+
+(defun my/load-theme (frame)
+  "Load the appropriate theme for FRAME."
+  (with-selected-frame frame
+    (load-theme (if (display-graphic-p frame)
+                    'modus-operandi
+                  'modus-vivendi)
+                t)))
