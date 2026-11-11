@@ -123,7 +123,8 @@
          (go-mode . eglot-ensure)
          (c-mode . eglot-ensure)
          (c++-mode . eglot-ensure)
-         (emacs-lisp-mode . eglot-ensure)))
+         ;;(emacs-lisp-mode . eglot-ensure)
+	 ))
 
 
 (use-package org
@@ -146,3 +147,10 @@
                #'cape-dabbrev)
   (add-to-list 'completion-at-point-functions
                #'cape-file))
+
+
+;; custom ones
+
+(if (file-exists-p "addons/keytel/keytel.el")
+    (load "addons/keytel/keytel")
+    )
